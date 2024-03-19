@@ -1,9 +1,8 @@
-package dal
+package repository
 
 import (
 	"context"
 	"database/sql"
-	"github.com/kcmvp/got/boot"
 	"github.com/samber/do/v2"
 )
 
@@ -92,20 +91,13 @@ func (dbxImpl *DBXImpl) AddExecHooks(hook Hook) {
 	dbxImpl.beforeExecHooks = append(dbxImpl.beforeExecHooks, hook)
 }
 
-func SetResource(dbx DBX, name string) {
-	boot.Container().ListProvidedServices()
-	do.ProvideNamed[DBX](boot.Container(), name, func(injector do.Injector) (DBX, error) {
-		return &DBXImpl{ds: dbx}, nil
-	})
-}
-
-func init() {
-	boot.Container().ListProvidedServices()
-	dbx, _ := sql.Open("", "")
-	do.ProvideNamed[DBX](boot.Container(), "@todo", func(injector do.Injector) (DBX, error) {
-		return &DBXImpl{ds: dbx}, nil
-	})
-}
+//func init() {
+//	boot.Container().ListProvidedServices()
+//	dbx, _ := sql.Open("", "")
+//	do.ProvideNamed[DBX](boot.Container(), "@todo", func(injector do.Injector) (DBX, error) {
+//		return &DBXImpl{ds: dbx}, nil
+//	})
+//}
 
 var _ DBX = (*DBXImpl)(nil)
 var _ do.HealthcheckerWithContext = (*DBXImpl)(nil)

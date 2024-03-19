@@ -1,4 +1,4 @@
-package dal
+package repository
 
 type SimpleSelect[E IEntity] struct {
 	cols      Attr[E]

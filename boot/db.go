@@ -1,4 +1,9 @@
+// nolint:all
 package boot
+
+const (
+	DataSource = "datasource"
+)
 
 type dataSource struct {
 	Driver   string
@@ -9,7 +14,17 @@ type dataSource struct {
 	Db       string
 }
 
-func setupDb(ds []dataSource) {
+func setupDb() {
+	var ds []dataSource
+	if err := cfg.UnmarshalKey(DataSource, &ds); err == nil {
+		if len(ds) > 0 {
+			// 1: setup datasource
+			// 2: inject datasource into container
+			// 3: execute init.sql
+		}
+	} else {
+		//@todo log message
+	}
 
 	//db, err := sql.Open("mysql", "user:password@/dbname")
 	//if err != nil {
