@@ -5,7 +5,9 @@ go 1.22.1
 require (
 	github.com/iancoleman/strcase v0.3.0
 	github.com/kcmvp/structs v1.1.0
+	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/samber/do/v2 v2.0.0-beta.5
+	github.com/samber/go-type-to-string v1.2.0
 	github.com/samber/lo v1.39.0
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.8.4
@@ -21,7 +23,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
-	github.com/samber/go-type-to-string v1.2.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
