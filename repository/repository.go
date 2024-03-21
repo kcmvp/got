@@ -2,7 +2,7 @@ package repository
 
 import (
 	"fmt"
-	"github.com/kcmvp/got/boot"
+	"github.com/kcmvp/got/internal"
 	"github.com/samber/do/v2"
 )
 
@@ -124,7 +124,7 @@ func NewRepository[E IEntity, K Key]() Repository[E, K] {
 
 func NewRepositoryWithDS[E IEntity, K Key](dsName string) Repository[E, K] {
 	repo := &defaultRepository[E, K]{
-		dbx: do.MustInvokeNamed[DBX](boot.Container(), dsName),
+		dbx: do.MustInvokeNamed[DBX](internal.Container, dsName),
 	}
 	//@todo validate with Attr
 	return repo

@@ -1,0 +1,8 @@
+datasource:
+  driver: sqlite3
+  url: file:test.db?cache=shared&mode=memory
+  scripts:
+    - sqlite3-schema.sql
+    - sqlite3-init.sql
+
+

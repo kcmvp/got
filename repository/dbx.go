@@ -3,7 +3,10 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"github.com/kcmvp/got/internal"
 	"github.com/samber/do/v2"
+	"github.com/samber/lo"
+	"strings" //nolint
 )
 
 const DefaultDS = "defaultDS"
@@ -91,13 +94,16 @@ func (dbxImpl *DBXImpl) AddExecHooks(hook Hook) {
 	dbxImpl.beforeExecHooks = append(dbxImpl.beforeExecHooks, hook)
 }
 
-//func init() {
-//	boot.Container().ListProvidedServices()
-//	dbx, _ := sql.Open("", "")
-//	do.ProvideNamed[DBX](boot.Container(), "@todo", func(injector do.Injector) (DBX, error) {
-//		return &DBXImpl{ds: dbx}, nil
-//	})
-//}
+func init() {
+	lo.ForEach(internal.Container.ListProvidedServices(), func(item do.EdgeService, _ int) {
+		if strings.HasSuffix(item.Service, "_*database/sql.DB") {
+			dsName := strings.TrimSuffix(item.Service, "_*database/sql.DB")
+			do.ProvideNamed[DBX](internal.Container, dsName, func(injector do.Injector) (DBX, error) {
+				return &DBXImpl{ds: do.MustInvokeNamed[*sql.DB](injector, item.Service)}, nil
+			})
+		}
+	})
+}
 
 var _ DBX = (*DBXImpl)(nil)
 var _ do.HealthcheckerWithContext = (*DBXImpl)(nil)
